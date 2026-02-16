@@ -43,12 +43,15 @@ Via h2c-manager (recommended -- auto-resolves certmanager dependency):
 python3 h2c-manager.py trust-manager
 ```
 
-Manual (ensure certmanager operator dir is also passed):
+Manual (both operators must be in the same directory — `--extensions-dir` scans `.py` files and one-level subdirectories):
 
 ```bash
+mkdir -p operators
+cp h2c-operator-certmanager/certmanager.py operators/
+cp h2c-operator-trust-manager/trust_manager.py operators/
+
 python3 helmfile2compose.py \
-  --extensions-dir ./h2c-operator-certmanager \
-  --extensions-dir ./h2c-operator-trust-manager \
+  --extensions-dir ./operators \
   --helmfile-dir ~/my-platform -e local --output-dir .
 ```
 
