@@ -85,7 +85,7 @@ class TrustManagerConverter:
     kinds = ["Bundle"]
     priority = 20  # after cert-manager (needs secrets), before keycloak (produces configmaps)
 
-    def convert(self, kind, manifests, ctx):
+    def convert(self, _kind, manifests, ctx):
         for m in manifests:
             name = m.get("metadata", {}).get("name", "?")
             spec = m.get("spec", {})
