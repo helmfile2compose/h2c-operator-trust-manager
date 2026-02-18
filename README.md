@@ -1,4 +1,4 @@
-# h2c-operator-trust-manager
+# h2c-converter-trust-manager
 
 ![vibe coded](https://img.shields.io/badge/vibe-coded-ff69b4)
 ![python 3](https://img.shields.io/badge/python-3-3776AB)
@@ -25,11 +25,11 @@ The assembled bundle is injected into `ctx.configmaps` under the Bundle's name, 
 
 ## Priority
 
-`20` -- runs after cert-manager (priority 10, generates the Secrets this operator reads), before keycloak (priority 50, mounts the ConfigMaps this operator produces).
+`20` -- runs after cert-manager (priority 10, generates the Secrets this converter reads), before keycloak (priority 50, mounts the ConfigMaps this converter produces).
 
 ## Depends on
 
-- **h2c-operator-cert-manager** -- needs its generated Secrets as input for Secret-type sources. When using h2c-manager, cert-manager is auto-resolved as a dependency.
+- **h2c-converter-cert-manager** -- needs its generated Secrets as input for Secret-type sources. When using h2c-manager, cert-manager is auto-resolved as a dependency.
 
 ## Dependencies
 
@@ -43,15 +43,15 @@ Via h2c-manager (recommended -- auto-resolves cert-manager dependency):
 python3 h2c-manager.py trust-manager
 ```
 
-Manual (both operators must be in the same directory — `--extensions-dir` scans `.py` files and one-level subdirectories):
+Manual (both extensions must be in the same directory — `--extensions-dir` scans `.py` files and one-level subdirectories):
 
 ```bash
-mkdir -p operators
-cp h2c-operator-cert-manager/cert_manager.py operators/
-cp h2c-operator-trust-manager/trust_manager.py operators/
+mkdir -p extensions
+cp h2c-converter-cert-manager/cert_manager.py extensions/
+cp h2c-converter-trust-manager/trust_manager.py extensions/
 
 python3 helmfile2compose.py \
-  --extensions-dir ./operators \
+  --extensions-dir ./extensions \
   --helmfile-dir ~/my-platform -e local --output-dir .
 ```
 
