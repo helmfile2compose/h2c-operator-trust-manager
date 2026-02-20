@@ -9,7 +9,7 @@ Optional: certifi (for useDefaultCAs). Falls back to system CA paths.
 
 import sys
 
-from helmfile2compose import ConvertResult, Converter
+from h2c import ConvertResult, Converter
 
 
 def _get_default_cas():
